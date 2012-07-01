@@ -1,0 +1,3 @@
+---
+config_vars:
+  PATH: ".texlive/dist/2011/bin:/usr/bin:/bin"

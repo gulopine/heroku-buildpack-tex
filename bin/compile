@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+VERSION="20120511"
+TEXLIVE_URL="https://heroku-buildpack-tex.s3.amazonaws.com/texlive-$VERSION.tar.gz"
+TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
+DOCUMENT="document.tex"
+
+if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
+    echo "-----> Fetching TeX Live $VERSION"
+
+    [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
+    curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
+fi
+
+pdflatex $DOCUMENT
