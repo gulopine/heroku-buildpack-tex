@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # bin/detect <build-dir>
 
 echo "TeX"

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # bin/compile <build-dir> <cache-dir>
 
 BUILD_DIR=$1
