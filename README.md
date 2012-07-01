@@ -12,7 +12,7 @@ Example usage:
     $ ls
     document.tex
 
-    $ heroku create --stack cedar --buildpack git@github.com:gulopine/heroku-buildpack-tex.git
+    $ heroku create --stack cedar --buildpack https://github.com/gulopine/heroku-buildpack-tex/
 
     $ git push heroku master
     ...
