@@ -1,5 +1,10 @@
 #!/bin/sh
 # bin/detect <build-dir>
 
-echo "TeX"
-exit 0
+BUILD_DIR=$1
+
+if [ -f $BUILD_DIR/document.tex ]; then
+    echo "TeX" && exit 0
+else
+    echo "no" && exit 1
+fi
