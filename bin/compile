@@ -26,10 +26,9 @@ fi
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
-OUTPUT=`pdflatex $DOCUMENT`
+WRITTEN=`pdflatex $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
-WRITTEN=`echo $OUTPUT | grep "^Output written"`
 if [ ! WRITTEN ]; then
     echo $OUTPUT
     exit 1
@@ -38,9 +37,6 @@ fi
 # Give some feedback to the user
 OUTPUT_FILENAME=`echo $WRITTEN | sed 's/.*on \(.\+pdf\).*/\1/'`
 PAGES=`echo $WRITTEN | sed 's/.* .\([0-9]\+ pages\?\),.*/\1/'`
-echo $OUTPUT
-echo $WRITTEN
-echo $PAGES
 if [ ! PAGES ]; then
     echo $OUTPUT
     exit 1
