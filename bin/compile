@@ -17,6 +17,11 @@ if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 fi
 
+cd $BUILD_DIR
+if [ ! -f $DOCUMENT ]; then
+    echo "-----> $DOCUMENT not found" && exit 1
+fi
+
 echo "-----> Building $DOCUMENT"
 pdflatex $DOCUMENT
 echo "       Built document.pdf"
