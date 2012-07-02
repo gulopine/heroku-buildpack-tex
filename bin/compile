@@ -41,5 +41,5 @@ if [ ! PAGES ]; then
     echo $OUTPUT
     exit 1
 fi
-OUTPUT_FILENAME=`echo $DOCUMENT | sed s/tex$/pdf/`
+
 echo "       Built $OUTPUT_FILENAME ($PAGES)"
