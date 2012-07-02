@@ -7,8 +7,12 @@ CACHE_DIR=$2
 VERSION="20120511"
 TEXLIVE_URL="https://heroku-buildpack-tex.s3.amazonaws.com/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
-DOCUMENT="document.tex"
 PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
+
+# Check for a specific document filename
+if [ ! $DOCUMENT ]; then
+    DOCUMENT="document.tex"
+fi
 
 # Get a TeX Live distribution suitable for use on Heroku
 if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
@@ -21,7 +25,7 @@ fi
 # Check for the existences of a suitable TeX document
 cd $BUILD_DIR
 if [ ! -f $DOCUMENT ]; then
-    echo "-----> $DOCUMENT not found" && exit 1
+    echo "-----> $DOCUMENT not found. Set DOCUMENT if using a different filename" && exit 1
 fi
 
 # Attempt to build the document into a PDF
