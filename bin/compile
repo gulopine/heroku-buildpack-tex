@@ -37,4 +37,4 @@ fi
 # Give some feedback to the user
 OUTPUT_FILENAME=`echo $WRITTEN | sed 's/.*on \(.\+pdf\).*/\1/'`
 PAGES=`echo $WRITTEN | sed 's/.* .\([0-9]\+ pages\?\),.*/\1/'`
-echo "       Built $OUTPUT_FILENAME ($PAGES)"
+echo "       Wrote $PAGES to $OUTPUT_FILENAME"
