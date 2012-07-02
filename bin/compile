@@ -26,5 +26,5 @@ fi
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
-pdflatex $DOCUMENT
-echo "       Built document.pdf"
+OUTPUT=`pdflatex $DOCUMENT`
+
