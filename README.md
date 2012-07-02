@@ -7,8 +7,6 @@ for TeX documents.
 Usage
 -----
 
-Example usage:
-
     $ ls
     document.tex
 
@@ -21,5 +19,5 @@ Example usage:
     -----> TeX app detected
     -----> Fetching TeX Live 20120511
     -----> Building document.tex
-           Built document.pdf
+           Wrote 3 pages to document.pdf
 
