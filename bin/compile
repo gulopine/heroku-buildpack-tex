@@ -29,7 +29,7 @@ echo "-----> Building $DOCUMENT"
 WRITTEN=`pdflatex $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
-if [ ! WRITTEN ]; then
+if [ ! $WRITTEN ]; then
     echo $OUTPUT
     exit 1
 fi
