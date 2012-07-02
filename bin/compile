@@ -10,6 +10,7 @@ TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
 DOCUMENT="document.tex"
 PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
 
+# Get a TeX Live distribution suitable for use on Heroku
 if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     echo "-----> Fetching TeX Live $VERSION"
 
@@ -17,11 +18,13 @@ if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 fi
 
+# Check for the existences of a suitable TeX document
 cd $BUILD_DIR
 if [ ! -f $DOCUMENT ]; then
     echo "-----> $DOCUMENT not found" && exit 1
 fi
 
+# Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
 pdflatex $DOCUMENT
 echo "       Built document.pdf"
