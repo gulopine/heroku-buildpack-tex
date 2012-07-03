@@ -42,7 +42,24 @@ WRITTEN=`pdflatex $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
 if [ ! $WRITTEN ]; then
-    cat document.log
+    LOG_FILE=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
+    LOG=`grep -n '^!' $LOG_FILE`
+    while read -r line; do
+        # Find the error message
+        LINE_NO=`echo $line | sed 's/^\([0-9]\+\):.*/\1/'`
+        ERROR=`echo $line | sed 's/^[0-9]\+:\! \(.*\)/\1/'`
+
+        # The line after the error message indicates where the error occurred
+        LINE=`sed -n "$[$LINE_NO + 1] p" output.log`
+        LINE_NO=`echo $LINE | sed 's/^l\.\([0-9]\+\).*/\1/'`
+
+        # Get the actual line in the document that contains the error
+        LINE=`sed -n "$LINE_NO p" $DOCUMENT`
+
+        # Send feedback to the user
+        echo " !     $ERROR"
+        echo "       $LINE"
+    done <<< "$LOG"
     exit 1
 fi
 
