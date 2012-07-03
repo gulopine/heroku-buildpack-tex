@@ -11,11 +11,13 @@ TEXLIVE_CACHE=$CACHE_DIR/.texlive
 PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
+# Prepare the TeX Live location
+[ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
+
 # Get TeX Live from S3 if necessary
 if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     echo "-----> Fetching TeX Live $VERSION"
 
-    [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 
     # Store a copy of it in the cache so it doesn't have to be fetched again
