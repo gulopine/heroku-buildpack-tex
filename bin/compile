@@ -30,7 +30,7 @@ if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     cp -R $TEXLIVE_HOME/* $TEXLIVE_CACHE
 fi
 
-# Check for the existences of a suitable TeX document
+# Check for the existence of a suitable TeX document
 cd $BUILD_DIR
 if [ ! -f $DOCUMENT ]; then
     echo " !     $DOCUMENT not found." && exit 1
