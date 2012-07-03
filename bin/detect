@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # bin/detect <build-dir>
 
 BUILD_DIR=$1
