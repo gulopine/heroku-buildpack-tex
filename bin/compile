@@ -58,7 +58,7 @@ if [ ! $WRITTEN ]; then
 
         # Send feedback to the user
         echo " !     $ERROR"
-        echo "       $LINE"
+        echo " $(printf %5d $LINE_NO) $LINE"
     done <<< "$LOG"
     exit 1
 fi
