@@ -14,6 +14,11 @@ DOCUMENT="document.tex"
 # Prepare the TeX Live location
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
+# Get TeX Live from the cache if possible
+if [ ! -f $TEXLIVE_CACHE/bin/tex ]; then
+    cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
+fi
+
 # Get TeX Live from S3 if necessary
 if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     echo "-----> Fetching TeX Live $VERSION"
