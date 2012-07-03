@@ -7,7 +7,7 @@ CACHE_DIR=$2
 VERSION="20120511"
 TEXLIVE_URL="https://heroku-buildpack-tex.s3.amazonaws.com/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
-TEXLIVE_CACHE=$CACHE_DIR/.texlive
+TEXLIVE_CACHE=$CACHE_DIR/.texlive/dist
 PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
@@ -22,7 +22,7 @@ if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
 
     # Store a copy of it in the cache so it doesn't have to be fetched again
     [ ! -d $TEXLIVE_CACHE ] && mkdir -p $TEXLIVE_CACHE
-    cp -R $TEXLIVE_HOME $TEXLIVE_CACHE
+    cp -R $TEXLIVE_HOME/* $TEXLIVE_CACHE
 fi
 
 # Check for the existences of a suitable TeX document
