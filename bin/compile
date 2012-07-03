@@ -11,7 +11,7 @@ TEXLIVE_CACHE=$CACHE_DIR/.texlive
 PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
-# Get a TeX Live distribution suitable for use on Heroku
+# Get TeX Live from S3 if necessary
 if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     echo "-----> Fetching TeX Live $VERSION"
 
