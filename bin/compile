@@ -15,7 +15,7 @@ DOCUMENT="document.tex"
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
 # Get TeX Live from the cache if possible
-if [ ! -f $TEXLIVE_CACHE/bin/tex ]; then
+if [ -f $TEXLIVE_CACHE/bin/tex ]; then
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
 fi
 
