@@ -15,12 +15,12 @@ DOCUMENT="document.tex"
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
 # Get TeX Live from the cache if possible
-if [ -f $TEXLIVE_CACHE/bin/tex ]; then
+if [ -f $TEXLIVE_CACHE/VERSION ]; then
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
 fi
 
 # Get TeX Live from S3 if necessary
-if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
+if [ ! -f "$TEXLIVE_HOME/VERSION" ]; then
     echo "-----> Fetching TeX Live $VERSION"
 
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
@@ -28,6 +28,9 @@ if [ ! -f "$TEXLIVE_HOME/bin/tex" ]; then
     # Store a copy of it in the cache so it doesn't have to be fetched again
     [ ! -d $TEXLIVE_CACHE ] && mkdir -p $TEXLIVE_CACHE
     cp -R $TEXLIVE_HOME/* $TEXLIVE_CACHE
+
+    # Store the version for later
+    echo $VERSION > $TEXLIVE_CACHE/VERSION
 fi
 
 # Check for the existence of a suitable TeX document
