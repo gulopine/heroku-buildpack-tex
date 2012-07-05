@@ -41,6 +41,39 @@ if [ ! -f $DOCUMENT ]; then
     echo " !     $DOCUMENT not found." && exit 1
 fi
 
+# Convert any fonts that were found
+if [ -d fonts ] && [ `ls fonts` ]; then
+    echo "-----> Converting fonts"
+
+    # Process TrueType fonts
+    for FONT in `ls *.ttf`; do
+        # This is *really* unweidly, but it does the job
+        NAME=`ttfdump -t name fonts/$FONT | sed -e '/NameID:\s*1$/,/>/!d' | grep '>' | sed 's/.*> \(\S*\)/\1/' | sed -n '1p'`
+        echo "       $NAME"
+#        ttf2afm -e T1-WGL4.enc -o lekton.afm lekton.ttf
+#        afm2tfm ./lekton.afm -T ./T1-WGL4.enc
+#        ttf2tfm lekton.ttf -q -T T1-WGL4.enc
+#        BASE=`echo fonts/$FONT | sed 's/\(.*\?\)\.ttf/\1/'`
+#        echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+#        echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
+#        echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
+#        echo "\DeclareFontShape{T1}{$BASE}{m}{n}{ <-> $BASE}{}" >> $FD_FILE
+    done
+
+    # Process OpenType fonts
+    for FONT in `ls *.otf`; do
+        NAME=`otfinfo -a fonts/$FONT`
+        echo "       $NAME"
+#        otftotfm -e T1-WGL4.enc fonts/$FONT $NAME
+#        BASE=`echo $FONT | sed 's/\(.*\?\)\.otf/\1/'`
+#        echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+#        FD_FILE="t1$BASE.fd"
+#        echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
+#        echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
+#        echo "\DeclareFontShape{T1}{$BASE}{m}{n}{ <-> $BASE}{}" >> $FD_FILE
+    done
+fi
+
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
 WRITTEN=`pdflatex $DOCUMENT | grep "^Output written"`
