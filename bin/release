@@ -5,5 +5,5 @@ cat << EOF
 config_vars:
   PATH: /app/.texlive/dist/texlive/bin/x86_64-linux:/usr/local/bin:/usr/bin:/bin
 default_process_types:
-  worker: echo
+  web: python -m SimpleHTTPServer \$PORT
 EOF
