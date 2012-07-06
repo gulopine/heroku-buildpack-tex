@@ -44,6 +44,7 @@ fi
 # Convert any fonts that were found
 if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     echo "-----> Converting fonts"
+    cd $BUILD_DIR/fonts
 
     # Process TrueType fonts
     for FONT in `ls *.ttf`; do
@@ -73,6 +74,8 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
 #        echo "\DeclareFontShape{T1}{$BASE}{m}{n}{ <-> $BASE}{}" >> $FD_FILE
     done
 fi
+
+cd $BUILD_DIR
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
