@@ -42,7 +42,7 @@ if [ ! -f $DOCUMENT ]; then
 fi
 
 # Convert any fonts that were found
-if [ -d fonts ] && [ "$(ls fonts)" ]; then
+if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     echo "-----> Converting fonts"
 
     # Process TrueType fonts
