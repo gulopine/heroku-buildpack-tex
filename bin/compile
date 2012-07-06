@@ -46,6 +46,9 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     echo "-----> Converting fonts"
     cd $BUILD_DIR/fonts
 
+    # Reset the font map
+    echo > ttfonts.map
+
     # Process TrueType fonts
     if [ "$(ls *.ttf)" ]; then
         for FONT in `ls *.ttf`; do
@@ -55,8 +58,8 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
 #            ttf2afm -e T1-WGL4.enc -o lekton.afm lekton.ttf
 #            afm2tfm ./lekton.afm -T ./T1-WGL4.enc
             ttf2tfm $FONT -q -T T1-WGL4.enc
-#            BASE=`echo $FONT | sed 's/\(.*\?\)\.ttf/\1/'`
-#            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+            BASE=`echo $FONT | sed 's/\(.*\?\)\.ttf/\1/'`
+            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
 #            FD_FILE="t1$BASE.fd"
 #            echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
 #            echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
@@ -70,8 +73,8 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
             NAME=`otfinfo -a $FONT`
             echo "       $NAME"
             otftotfm -e T1-WGL4.enc $FONT $NAME
-#            BASE=`echo $FONT | sed 's/\(.*\?\)\.otf/\1/'`
-#            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+            BASE=`echo $FONT | sed 's/\(.*\?\)\.otf/\1/'`
+            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
 #            FD_FILE="t1$BASE.fd"
 #            echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
 #            echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
