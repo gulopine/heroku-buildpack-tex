@@ -77,6 +77,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
 #            echo "\DeclareFontShape{T1}{$BASE}{m}{n}{ <-> $BASE}{}" >> $FD_FILE
         done
     fi
+fi
 
 cd $BUILD_DIR
 
