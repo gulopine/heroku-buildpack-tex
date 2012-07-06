@@ -57,6 +57,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
             ttf2tfm $FONT -q -T T1-WGL4.enc
 #            BASE=`echo $FONT | sed 's/\(.*\?\)\.ttf/\1/'`
 #            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+#            FD_FILE="t1$BASE.fd"
 #            echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
 #            echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
 #            echo "\DeclareFontShape{T1}{$BASE}{m}{n}{ <-> $BASE}{}" >> $FD_FILE
