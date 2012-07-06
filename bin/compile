@@ -54,7 +54,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
             echo "       $NAME"
 #            ttf2afm -e T1-WGL4.enc -o lekton.afm lekton.ttf
 #            afm2tfm ./lekton.afm -T ./T1-WGL4.enc
-#            ttf2tfm lekton.ttf -q -T T1-WGL4.enc
+            ttf2tfm $FONT -q -T T1-WGL4.enc
 #            BASE=`echo $FONT | sed 's/\(.*\?\)\.ttf/\1/'`
 #            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
 #            echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
@@ -68,7 +68,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
         for FONT in `ls *.otf`; do
             NAME=`otfinfo -a $FONT`
             echo "       $NAME"
-#            otftotfm -e T1-WGL4.enc $FONT $NAME
+            otftotfm -e T1-WGL4.enc $FONT $NAME
 #            BASE=`echo $FONT | sed 's/\(.*\?\)\.otf/\1/'`
 #            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
 #            FD_FILE="t1$BASE.fd"
