@@ -46,10 +46,11 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     echo "-----> Converting fonts"
     cd $BUILD_DIR/fonts
 
+    ENC=T1-WGL4.enc
     # TODO: Move this into the distribution, where we'll be able to do this
-    # cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/T1-WGL4.enc .
+    # cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/$ENC .
     # Otherwise, we have to do this:
-    curl https://heroku-buildpack-tex.s3.amazonaws.com/T1-WGL4.enc -s -O
+    curl https://heroku-buildpack-tex.s3.amazonaws.com/$ENC -s -O
 
     # Reset the font map
     echo > ttfonts.map
@@ -60,9 +61,9 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
             # This is *really* unweidly, but it does the job
             NAME=`ttfdump -t name $FONT | sed -e '/NameID:\s*1$/,/>/!d' | grep '>' | sed 's/.*> \(\S*\)/\1/' | sed -n '1p'`
             echo "       $NAME"
-            ttf2tfm $FONT -q -T T1-WGL4.enc > /dev/null
+            ttf2tfm $FONT -q -T $ENC > /dev/null
             BASE=`echo $FONT | sed 's/\(.*\?\)\.ttf/\1/'`
-            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+            echo "$BASE $FONT Encoding=$ENC" >> ttfonts.map
             FD_FILE="t1$BASE.fd"
             echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
             echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
@@ -75,9 +76,9 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
         for FONT in `ls *.otf`; do
             NAME=`otfinfo -a $FONT`
             echo "       $NAME"
-            otftotfm -e T1-WGL4.enc $FONT $NAME > /dev/null
+            otftotfm -e $ENC $FONT $NAME > /dev/null
             BASE=`echo $FONT | sed 's/\(.*\?\)\.otf/\1/'`
-            echo "$BASE $FONT Encoding=T1-WGL4.enc" >> ttfonts.map
+            echo "$BASE $FONT Encoding=$ENC" >> ttfonts.map
             FD_FILE="t1$BASE.fd"
             echo "\ProvidesFile{t1$BASE.fd}[$NAME Font]" > $FD_FILE
             echo "\DeclareFontFamily{T1}{$BASE}{}" >> $FD_FILE
