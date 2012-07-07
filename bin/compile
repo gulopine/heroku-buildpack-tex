@@ -63,7 +63,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
             # This is *really* unweidly, but it does the job
             NAME=`ttfdump -t name $FONT | sed -e '/NameID:\s*1$/,/>/!d' | grep '>' | sed 's/.*> \(\S*\)/\1/' | sed -n '1p'`
             echo "       $NAME"
-            ttf2tfm $FONT -q -T $ENC > /dev/null
+            ttf2tfm $FONT -q -T $ENC &> /dev/null
             BASE=`echo $FONT | sed 's/\(.*\?\)\.ttf/\1/'`
             echo "$BASE $FONT Encoding=$ENC" >> ttfonts.map
             FD_FILE="t1$BASE.fd"
@@ -78,7 +78,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
         for FONT in `ls *.otf`; do
             NAME=`otfinfo -a $FONT`
             echo "       $NAME"
-            otftotfm -e $ENC $FONT $NAME > /dev/null
+            otftotfm -e $ENC $FONT $NAME &> /dev/null
             BASE=`echo $FONT | sed 's/\(.*\?\)\.otf/\1/'`
             echo "$BASE $FONT Encoding=$ENC" >> ttfonts.map
             FD_FILE="t1$BASE.fd"
