@@ -45,6 +45,7 @@ fi
 if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     echo "-----> Converting fonts"
     cd $BUILD_DIR/fonts
+    cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/T1-WGL4.enc .
 
     # Reset the font map
     echo > ttfonts.map
