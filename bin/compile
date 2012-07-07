@@ -50,7 +50,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
 
     ENC=T1-WGL4.enc
     # TODO: Move this into the distribution, where we'll be able to do this
-    # cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/$ENC .
+    # cp $TEXLIVE_HOME/texmf/fonts/enc/ttf2pk/base/$ENC .
     # Otherwise, we have to do this:
     curl $TEXLIVE_DOMAIN/$ENC -s -O
 
