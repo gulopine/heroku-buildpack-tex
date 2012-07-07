@@ -4,7 +4,7 @@
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-VERSION="20120511"
+VERSION=`curl https://heroku-buildpack-tex.s3.amazonaws.com/VERSION -s`
 TEXLIVE_URL="https://heroku-buildpack-tex.s3.amazonaws.com/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
 TEXLIVE_CACHE=$CACHE_DIR/.texlive/dist
@@ -15,7 +15,7 @@ DOCUMENT="document.tex"
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
 # Get TeX Live from the cache if possible
-if [ -f $TEXLIVE_CACHE/VERSION ]; then
+if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION = `cat $TEXLIVE/VERSION` )); then
     VERSION=`cat $TEXLIVE_CACHE/VERSION`
     echo "       Installing TeX Live $VERSION from cache"
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
