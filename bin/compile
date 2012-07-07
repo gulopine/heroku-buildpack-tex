@@ -32,7 +32,7 @@ else
     # Store a copy of it in the cache so it doesn't have to be fetched again
     [ ! -d $TEXLIVE_CACHE ] && mkdir -p $TEXLIVE_CACHE
     # Make sure the cache is empty first
-    rm -rf $TEXLIVE_CACHE
+    rm -rf $TEXLIVE_CACHE/*
     cp -R $TEXLIVE_HOME/* $TEXLIVE_CACHE
 
     # Store the version for later
