@@ -15,7 +15,7 @@ DOCUMENT="document.tex"
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
 # Get TeX Live from the cache if possible
-if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION = `cat $TEXLIVE/VERSION` )); then
+if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION = `cat $TEXLIVE_HOME/VERSION` )); then
     VERSION=`cat $TEXLIVE_CACHE/VERSION`
     echo "       Installing TeX Live $VERSION from cache"
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
