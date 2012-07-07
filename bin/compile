@@ -8,7 +8,7 @@ VERSION=`curl https://heroku-buildpack-tex.s3.amazonaws.com/VERSION -s`
 TEXLIVE_URL="https://heroku-buildpack-tex.s3.amazonaws.com/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
 TEXLIVE_CACHE=$CACHE_DIR/.texlive/dist
-PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
+PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
 # Prepare the TeX Live location
