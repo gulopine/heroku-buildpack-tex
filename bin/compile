@@ -45,7 +45,11 @@ fi
 if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     echo "-----> Converting fonts"
     cd $BUILD_DIR/fonts
-    cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/T1-WGL4.enc .
+
+    # TODO: Move this into the distribution, where we'll be able to do this
+    # cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/T1-WGL4.enc .
+    # Otherwise, we have to do this:
+    curl https://heroku-buildpack-tex.s3.amazonaws.com/T1-WGL4.enc -s -O
 
     # Reset the font map
     echo > ttfonts.map
