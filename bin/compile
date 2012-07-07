@@ -93,7 +93,8 @@ cd $BUILD_DIR
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
-OUTPUT="`pdflatex $DOCUMENT`"
+pdflatex $DOCUMENT
+exit 0
 echo "!!!!!! Output:"
 echo "$OUTPUT"
 WRITTEN=`echo $OUTPUT | grep "^Output written"`
