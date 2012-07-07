@@ -9,7 +9,7 @@ VERSION=`curl $TEXLIVE_DOMAIN/VERSION -s`
 TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
 TEXLIVE_CACHE=$CACHE_DIR/.texlive/dist
-PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
+PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
 # Prepare the TeX Live location
@@ -50,7 +50,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
 
     ENC=T1-WGL4.enc
     # TODO: Move this into the distribution, where we'll be able to do this
-    # cp $TEXLIVE_HOME/texmf/fonts/enc/ttf2pk/base/$ENC .
+    # cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/$ENC .
     # Otherwise, we have to do this:
     curl $TEXLIVE_DOMAIN/$ENC -s -O
 
