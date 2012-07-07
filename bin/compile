@@ -4,8 +4,9 @@
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-VERSION=`curl https://heroku-buildpack-tex.s3.amazonaws.com/VERSION -s`
-TEXLIVE_URL="https://heroku-buildpack-tex.s3.amazonaws.com/texlive-$VERSION.tar.gz"
+TEXLIVE_DOMAIN="https://heroku-buildpack-tex.s3.amazonaws.com"
+VERSION=`curl $TEXLIVE_DOMAIN/VERSION -s`
+TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
 TEXLIVE_CACHE=$CACHE_DIR/.texlive/dist
 PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
@@ -52,7 +53,7 @@ if [ -d $BUILD_DIR/fonts ] && [ "$(ls $BUILD_DIR/fonts)" ]; then
     # TODO: Move this into the distribution, where we'll be able to do this
     # cp $TEXLIVE_HOME/texlive/texmf/fonts/enc/ttf2pk/base/$ENC .
     # Otherwise, we have to do this:
-    curl https://heroku-buildpack-tex.s3.amazonaws.com/$ENC -s -O
+    curl $TEXLIVE_DOMAIN/$ENC -s -O
 
     # Reset the font map
     echo > ttfonts.map
