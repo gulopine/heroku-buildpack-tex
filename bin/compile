@@ -27,6 +27,8 @@ else
         echo "       Fetching TeX Live $VERSION"
     fi
 
+    # Completely replace the old version
+    rm -rf $TEXLIVE_HOME
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 
     # Store a copy of it in the cache so it doesn't have to be fetched again
