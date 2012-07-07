@@ -95,18 +95,12 @@ cd $BUILD_DIR
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
-pdflatex $DOCUMENT
-exit 0
-echo "!!!!!! Output:"
-echo "$OUTPUT"
-WRITTEN=`echo $OUTPUT | grep "^Output written"`
+WRITTEN=`pdflatex $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
     LOG_FILE=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
     LOG=`grep -n '^!' $LOG_FILE`
-    echo "!!!!!! Log file:"
-    echo $LOG
     while read -r line; do
         # Find the error message
         LINE_NO=`echo $line | sed 's/^\([0-9]\+\):.*/\1/'`
