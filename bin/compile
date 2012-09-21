@@ -39,6 +39,11 @@ else
     echo $VERSION > $TEXLIVE_CACHE/VERSION
 fi
 
+if [ ! `which pdflatex` ]; then
+    echo " !     TeX Live installation failed"
+    exit 1
+fi
+
 # Check for the existence of a suitable TeX document
 cd $BUILD_DIR
 if [ ! -f $DOCUMENT ]; then
