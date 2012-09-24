@@ -10,7 +10,7 @@ Usage
     $ ls
     document.tex
 
-    $ heroku create --buildpack https://github.com/gulopine/heroku-buildpack-tex/
+    $ heroku create --buildpack https://github.com/holiture/heroku-buildpack-tex/
 
     $ git push heroku master
     ...
