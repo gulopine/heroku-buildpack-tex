@@ -2,7 +2,7 @@ Heroku buildpack: TeX
 =====================
 
 This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks)
-for TeX documents.
+for TeX documents. It does *NOT* currently work, and probably won't for some time. If you're interested in helping making it work, feel free to get in touch.
 
 Usage
 -----
