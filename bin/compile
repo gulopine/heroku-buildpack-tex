@@ -7,9 +7,9 @@ CACHE_DIR=$2
 TEXLIVE_DOMAIN="https://heroku-buildpack-tex.s3.amazonaws.com"
 VERSION=`curl $TEXLIVE_DOMAIN/VERSION -s`
 TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
-TEXLIVE_HOME=$BUILD_DIR/.texlive/dist
-TEXLIVE_CACHE=$CACHE_DIR/.texlive/dist
-PATH=$TEXLIVE_HOME/texlive/bin/x86_64-linux:$PATH
+TEXLIVE_HOME=$BUILD_DIR/.texlive
+TEXLIVE_CACHE=$CACHE_DIR/.texlive
+PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
 # Prepare the TeX Live location
