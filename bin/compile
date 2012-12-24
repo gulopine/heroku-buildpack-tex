@@ -101,18 +101,22 @@ cd $BUILD_DIR
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
-pdflatex $DOCUMENT > output.log
+pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT > output.log
 WRITTEN=`grep "^Output written" output.log`
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
     LOG_FILE=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
-    grep -n '^!' $LOG_FILE > errors.log
+    grep -n "^\./$DOCUMENT:" $LOG_FILE | sed 's/^[^:]\+://' > errors.log
     while read -r line; do
-        # Find the error message
-        LINE_NO=`echo $line | sed 's/^\([0-9]\+\):.*/\1/'`
+        LINE_NO=`echo $line | cut -d: -f1`
         echo $LINE_NO
-        ERROR=`echo $line | sed 's/^[0-9]\+:\! \(.*\)/\1/'`
+        if [ $LINE_NO -eq $PREV_LINE_NO ]; then
+            # Ignore multiple messages per line
+            continue
+        fi
+        PREV_LINE_NO=$LINE_NO
+        ERROR=`echo $line | sed "s/^$LINE_NO://"`
         echo $ERROR
 
         # The line after the error message indicates where the error occurred
