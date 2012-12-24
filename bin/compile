@@ -15,6 +15,9 @@ DOCUMENT="document.tex"
 # Prepare the TeX Live location
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
+echo `cat $TEXLIVE_HOME/VERSION`
+echo `which pdflatex`
+
 if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` )); then
     # Get TeX Live from the cache if possible
     echo "       Installing TeX Live $VERSION from cache"
