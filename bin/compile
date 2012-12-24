@@ -120,12 +120,6 @@ if [ ! "$WRITTEN" ]; then
         ERROR=`echo $line | sed "s/^$LINE_NO://"`
         echo "$ERROR"
 
-        # The line after the error message indicates where the error occurred
-        LINE=`sed -n "$[$LINE_NO + 1] p" $LOG_FILE`
-        echo "\$LINE: $LINE"
-        LINE_NO=`echo $LINE | sed 's/^l\.\([0-9]\+\).*/\1/'`
-        echo "\$LINE_NO: $LINE_NO"
-
         if [ "$LINE_NO" ]; then
             # Get the actual line in the document that contains the error
             LINE=`sed -n "$LINE_NO p" $DOCUMENT`
