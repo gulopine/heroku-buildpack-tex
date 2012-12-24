@@ -103,6 +103,7 @@ cd $BUILD_DIR
 echo "-----> Building $DOCUMENT"
 OUTPUT="`pdflatex $DOCUMENT`"
 WRITTEN=`echo $OUTPUT | grep "^Output written"`
+echo "       Written: $WRITTEN"
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
@@ -111,7 +112,9 @@ if [ ! "$WRITTEN" ]; then
     while read -r line; do
         # Find the error message
         LINE_NO=`echo $line | sed 's/^\([0-9]\+\):.*/\1/'`
+        echo $LINE_NO
         ERROR=`echo $line | sed 's/^[0-9]\+:\! \(.*\)/\1/'`
+        echo $ERROR
 
         # The line after the error message indicates where the error occurred
         LINE=`sed -n "$[$LINE_NO + 1] p" $LOG_FILE`
