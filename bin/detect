@@ -3,8 +3,6 @@
 
 BUILD_DIR=$1
 
-echo "TeX" && exit 0
-
 if [ -f $BUILD_DIR/document.tex ]; then
     echo "TeX" && exit 0
 else
