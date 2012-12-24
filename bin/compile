@@ -39,6 +39,7 @@ else
     echo $VERSION > $TEXLIVE_CACHE/VERSION
 fi
 
+# Check for an essential binary to make sure it's installed
 if [ ! `which pdflatex` ]; then
     echo " !     TeX Live installation failed"
     exit 1
