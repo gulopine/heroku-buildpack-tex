@@ -103,7 +103,6 @@ cd $BUILD_DIR
 echo "-----> Building $DOCUMENT"
 pdflatex $DOCUMENT > output.log
 WRITTEN=`grep "^Output written" output.log`
-echo "       Written: $WRITTEN"
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
