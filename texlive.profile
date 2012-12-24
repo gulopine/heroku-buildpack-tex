@@ -1,0 +1,10 @@
+selected_scheme scheme-small
+TEXDIR /app/.texlive
+TEXMFLOCAL /app/.texlive/texmf-local
+TEXMFSYSCONFIG /app/.texlive/texmf-config
+TEXMFSYSVAR /app/.texlive/texmf-var
+TEXMFHOME /app/.texlive/var/texmf
+TEXMFCONFIG /app/.texlive/var/texmf-config
+TEXMFVAR /app/.texlive/var/texmf-var
+collection-latex 1
+collection-fontutils 1
