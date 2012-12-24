@@ -109,15 +109,16 @@ if [ ! "$WRITTEN" ]; then
     LOG_FILE=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
     grep -n "^\./$DOCUMENT:" $LOG_FILE | sed 's/^[^:]\+://' > errors.log
     while read -r line; do
+        echo "$line"
         LINE_NO=`echo $line | cut -d: -f1`
-        echo $LINE_NO
-        if [ $LINE_NO -eq $PREV_LINE_NO ]; then
+        echo "$LINE_NO"
+        if [ "$LINE_NO" = "$PREV_LINE_NO" ]; then
             # Ignore multiple messages per line
             continue
         fi
-        PREV_LINE_NO=$LINE_NO
+        PREV_LINE_NO="$LINE_NO"
         ERROR=`echo $line | sed "s/^$LINE_NO://"`
-        echo $ERROR
+        echo "$ERROR"
 
         # The line after the error message indicates where the error occurred
         LINE=`sed -n "$[$LINE_NO + 1] p" $LOG_FILE`
