@@ -115,7 +115,7 @@ if [ ! "$WRITTEN" ]; then
             continue
         fi
         PREV_LINE_NO="$LINE_NO"
-        ERROR=`echo $line | sed "s/^$LINE_NO://"`
+        ERROR=`echo $line | sed "s/^$LINE_NO: //"`
 
         if [ "$LINE_NO" ]; then
             # Get the actual line in the document that contains the error
