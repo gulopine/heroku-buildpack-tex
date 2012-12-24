@@ -107,8 +107,8 @@ WRITTEN=`grep "^Output written" output.log`
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
     LOG_FILE=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
-    LOG=`grep -n '^!' $LOG_FILE`
-    while read -r line; do
+    grep -n '^!' $LOG_FILE > errors.log
+    for line in $(cat errors.log) do
         # Find the error message
         LINE_NO=`echo $line | sed 's/^\([0-9]\+\):.*/\1/'`
         echo $LINE_NO
@@ -129,7 +129,7 @@ if [ ! "$WRITTEN" ]; then
             echo " !     $ERROR"
             echo " $(printf %5d $LINE_NO) $LINE"
         fi
-    done <<< "$LOG"
+    done
     exit 1
 fi
 
