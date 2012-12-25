@@ -65,6 +65,11 @@ if [ ! "$WRITTEN" ]; then
     grep "^\./$DOCUMENT:" $LOG_FILE | sed 's/^[^:]\+://' > errors.log
     while read -r line; do
         LINE_NO=`echo $line | cut -d: -f1`
+        if [ "$LINE_NO" = "$PREV_LINE_NO" ]; then
+            # Ignore multiple messages per line
+            continue
+        fi
+        PREV_LINE_NO="$LINE_NO"
         ERROR=`echo $line | sed "s/^$LINE_NO: //"`
 
         if [ $LINE_NO ]; then
