@@ -62,15 +62,16 @@ WRITTEN=`pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT | grep "^
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
     LOG_FILE=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
-    grep "^\./$DOCUMENT:" $LOG_FILE | sed 's/^[^:]\+://' > errors.log
+    grep "^\./$DOCUMENT:" $LOG_FILE > errors.log
     while read -r line; do
-        LINE_NO=`echo $line | cut -d: -f1`
+        FILE=`echo $line | cut -d: -f1 | sed 's/$\.\//'`
+        LINE_NO=`echo $line | cut -d: -f2`
         if [ "$LINE_NO" = "$PREV_LINE_NO" ]; then
             # Ignore multiple messages per line
             continue
         fi
         PREV_LINE_NO="$LINE_NO"
-        ERROR=`echo $line | sed "s/^$LINE_NO: //"`
+        ERROR=`echo $line | sed "s/^\./$FILE:$LINE_NO: //"`
 
         if [ "$LINE_NO" ]; then
             # Get the actual line in the document that contains the error
@@ -78,7 +79,7 @@ if [ ! "$WRITTEN" ]; then
 
             # Send feedback to the user
             echo " !     $ERROR"
-            echo "$(printf %6d $LINE_NO) $LINE"
+            echo " !     > $FILE:$LINE_NO $LINE"
         fi
     done < errors.log
     exit 1
