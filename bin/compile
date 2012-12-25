@@ -21,7 +21,7 @@ if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` 
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
 else
     # Get TeX Live from S3 if necessary
-    if [ ! -f "$TEXLIVE_CACHE/VERSION" ]; then
+    if [ -f "$TEXLIVE_CACHE/VERSION" ]; then
         echo "       Upgrading to TeX Live $VERSION"
     else
         echo "       Fetching TeX Live $VERSION"
