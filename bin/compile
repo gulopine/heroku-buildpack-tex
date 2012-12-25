@@ -31,9 +31,9 @@ else
 
     # Make sure there's an empty cache
     if [ -d $TEXLIVE_CACHE ]; then
-        mkdir -p $TEXLIVE_CACHE
-    else
         rm -rf $TEXLIVE_CACHE/*
+    else
+        mkdir -p $TEXLIVE_CACHE
     fi
 
     # Store a copy of it in the cache so it doesn't have to be fetched again
