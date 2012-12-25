@@ -57,7 +57,7 @@ fi
 
 # Attempt to build the document into a PDF
 echo "-----> Building $DOCUMENT"
-WRITTEN=`pdflatex $DOCUMENT | grep "^Output written"`
+WRITTEN=`pdflatex --interaction=nonstopmode $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
