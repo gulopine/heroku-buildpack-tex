@@ -15,16 +15,17 @@ DOCUMENT="document.tex"
 # Prepare the TeX Live location
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
-# Get TeX Live from the cache if possible
-if [ -f $TEXLIVE_CACHE/VERSION ]; then
-    VERSION=`cat $TEXLIVE_CACHE/VERSION`
+if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` )); then
+    # Get TeX Live from the cache if possible
     echo "       Installing TeX Live $VERSION from cache"
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
-fi
-
-# Get TeX Live from S3 if necessary
-if [ ! -f "$TEXLIVE_HOME/VERSION" ]; then
-    echo "       Fetching TeX Live $VERSION"
+else
+    # Get TeX Live from S3 if necessary
+    if [ ! -f "$TEXLIVE_CACHE/VERSION" ]; then
+        echo "       Upgrading to TeX Live $VERSION"
+    else
+        echo "       Fetching TeX Live $VERSION"
+    fi
 
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 
