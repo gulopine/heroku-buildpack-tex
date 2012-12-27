@@ -12,19 +12,24 @@ TEXLIVE_CACHE=$CACHE_DIR/.texlive
 PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
+# Output helpers
+function build-step (){ echo "-----> $@" }
+function build-warn (){ echo " !     $@" }
+function build-info (){ echo "       $@" }
+
 # Prepare the TeX Live location
 [ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
 
 if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` )); then
     # Get TeX Live from the cache if possible
-    echo "       Installing TeX Live $VERSION from cache"
+    build-info "Installing TeX Live $VERSION from cache"
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
 else
     # Get TeX Live from S3 if necessary
     if [ -f "$TEXLIVE_CACHE/VERSION" ]; then
-        echo "       Upgrading to TeX Live $VERSION"
+        build-info "Upgrading to TeX Live $VERSION"
     else
-        echo "       Fetching TeX Live $VERSION"
+        build-info "Fetching TeX Live $VERSION"
     fi
 
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
@@ -45,18 +50,18 @@ fi
 
 # Check for an essential binary to make sure it's installed
 if [ ! `which pdflatex` ]; then
-    echo " !     TeX Live installation failed"
+    build-warn "TeX Live installation failed"
     exit 1
 fi
 
 # Check for the existence of a suitable TeX document
 cd $BUILD_DIR
 if [ ! -f $DOCUMENT ]; then
-    echo " !     $DOCUMENT not found." && exit 1
+    build-warn "$DOCUMENT not found." && exit 1
 fi
 
 # Attempt to build the document into a PDF
-echo "-----> Building $DOCUMENT"
+build-step "Building $DOCUMENT"
 WRITTEN=`pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
@@ -78,7 +83,7 @@ if [ ! "$WRITTEN" ]; then
             LINE=`sed -n "$LINE_NO p" $DOCUMENT`
 
             # Send feedback to the user
-            echo " !     $FILE:$LINE_NO: $ERROR"
+            build-warn "$FILE:$LINE_NO: $ERROR"
         fi
     done < errors.log
     exit 1
@@ -87,4 +92,4 @@ fi
 # Give some feedback to the user
 OUTPUT_FILENAME=`echo $WRITTEN | sed 's/.*on \(.\+pdf\).*/\1/'`
 PAGES=`echo $WRITTEN | sed 's/.* .\([0-9]\+ pages\?\),.*/\1/'`
-echo "       Wrote $PAGES to $OUTPUT_FILENAME"
+build-info "Wrote $PAGES to $OUTPUT_FILENAME"
