@@ -78,8 +78,7 @@ if [ ! "$WRITTEN" ]; then
             LINE=`sed -n "$LINE_NO p" $DOCUMENT`
 
             # Send feedback to the user
-            echo " !     $ERROR"
-            echo " !      $FILE:$LINE_NO $LINE"
+            echo " !     $FILE:$LINE_NO: $ERROR"
         fi
     done < errors.log
     exit 1
