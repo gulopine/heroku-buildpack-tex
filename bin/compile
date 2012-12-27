@@ -93,4 +93,5 @@ PAGES=`echo $WRITTEN | sed 's/.* .\([0-9]\+ pages\?\),.*/\1/'`
 build-info "Wrote $PAGES to $OUTPUT_FILENAME"
 
 # Set up the environment for runtimes now that compilation has finished
-echo "PATH=$PATH" >> .profile.d/texlive
+mkdir -p $BUILD_DIR/.profile.d
+echo "PATH=$PATH" >> $BUILD_DIR/.profile.d/texlive
