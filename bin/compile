@@ -84,13 +84,8 @@ if [ ! "$WRITTEN" ]; then
         PREV_LINE_NO="$LINE_NO"
         ERROR=`echo $line | sed "s/^..$FILE:$LINE_NO: //"`
 
-        if [ "$LINE_NO" ]; then
-            # Get the actual line in the document that contains the error
-            LINE=`sed -n "$LINE_NO p" $DOCUMENT`
-
-            # Send feedback to the user
-            build-warn "$FILE:$LINE_NO: $ERROR"
-        fi
+        # Send feedback to the user
+        build-warn "$FILE:$LINE_NO: $ERROR"
     done < errors.log
     exit 1
 fi
