@@ -79,7 +79,7 @@ if [ ! "$WRITTEN" ]; then
 
             # Send feedback to the user
             echo " !     $ERROR"
-            echo " !     > $FILE:$LINE_NO $LINE"
+            echo " !      $FILE:$LINE_NO $LINE"
         fi
     done < errors.log
     exit 1
