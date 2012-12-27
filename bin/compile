@@ -9,6 +9,7 @@ VERSION=`curl $TEXLIVE_DOMAIN/VERSION -s`
 TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive
 TEXLIVE_CACHE=$CACHE_DIR/.texlive
+PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 PROFILE_D=$BUILD_DIR/.profile.d/texlive
 DOCUMENT="document.tex"
 
@@ -60,7 +61,7 @@ fi
 # Attempt to build the document into a PDF
 build-step "Building $DOCUMENT"
 CMD="pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT"
-WRITTEN=`PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH $CMD | grep "^Output written"`
+WRITTEN=`$CMD | grep "^Output written"`
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
