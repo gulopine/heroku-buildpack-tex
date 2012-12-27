@@ -9,6 +9,7 @@ VERSION=`curl $TEXLIVE_DOMAIN/VERSION -s`
 TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive
 TEXLIVE_CACHE=$CACHE_DIR/.texlive
+PROFILE_D=$BUILD_DIR/.profile.d/texlive
 PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
@@ -94,4 +95,4 @@ build-info "Wrote $PAGES to $OUTPUT_FILENAME"
 
 # Set up the environment for runtimes now that compilation has finished
 mkdir -p $BUILD_DIR/.profile.d
-echo "PATH=$PATH" >> $BUILD_DIR/.profile.d/texlive
+echo "PATH=~/.texlive/bin/x86_64-linux:$PATH" >> $BUILD_DIR/.profile.d/texlive
