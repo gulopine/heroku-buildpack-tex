@@ -60,7 +60,8 @@ fi
 
 # Attempt to build the document into a PDF
 build-step "Building $DOCUMENT"
-WRITTEN=`pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT | grep "^Output written"`
+CMD="pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT"
+WRITTEN=`$CMD | grep "^Output written"`
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
