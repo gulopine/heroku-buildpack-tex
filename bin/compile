@@ -22,14 +22,14 @@ function build-info (){ echo "       $@" }
 
 if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` )); then
     # Get TeX Live from the cache if possible
-    build-info "Installing TeX Live $VERSION from cache"
+    build-step "Installing TeX Live $VERSION from cache"
     cp -R $TEXLIVE_CACHE/* $TEXLIVE_HOME
 else
     # Get TeX Live from S3 if necessary
     if [ -f "$TEXLIVE_CACHE/VERSION" ]; then
-        build-info "Upgrading to TeX Live $VERSION"
+        build-step "Upgrading to TeX Live $VERSION"
     else
-        build-info "Fetching TeX Live $VERSION"
+        build-step "Fetching TeX Live $VERSION"
     fi
 
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
