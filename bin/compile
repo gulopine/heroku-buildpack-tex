@@ -10,7 +10,6 @@ TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive
 TEXLIVE_CACHE=$CACHE_DIR/.texlive
 PROFILE_D=$BUILD_DIR/.profile.d/texlive
-PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 DOCUMENT="document.tex"
 
 # Output helpers
@@ -61,7 +60,7 @@ fi
 # Attempt to build the document into a PDF
 build-step "Building $DOCUMENT"
 CMD="pdflatex --interaction=nonstopmode -file-line-error $DOCUMENT"
-WRITTEN=`$CMD | grep "^Output written"`
+WRITTEN=`PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH $CMD | grep "^Output written"`
 
 # Bail out if something went wrong
 if [ ! "$WRITTEN" ]; then
