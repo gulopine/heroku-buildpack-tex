@@ -18,7 +18,7 @@ function build-warn (){ echo " !     $@"; }
 function build-info (){ echo "       $@"; }
 
 # Prepare the TeX Live location
-[ ! -d $TEXLIVE_HOME ] && mkdir -p $TEXLIVE_HOME
+mkdir -p $TEXLIVE_HOME
 
 if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` )); then
     # Get TeX Live from the cache if possible
@@ -35,11 +35,8 @@ else
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 
     # Make sure there's an empty cache
-    if [ -d $TEXLIVE_CACHE ]; then
-        rm -rf $TEXLIVE_CACHE/*
-    else
-        mkdir -p $TEXLIVE_CACHE
-    fi
+    mkdir -p $TEXLIVE_CACHE
+    rm -rf $TEXLIVE_CACHE/*
 
     # Store a copy of it in the cache so it doesn't have to be fetched again
     cp -R $TEXLIVE_HOME/* $TEXLIVE_CACHE
