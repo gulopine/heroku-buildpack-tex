@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+
+import os
+import SimpleHTTPServer
+import SocketServer
+
+
+class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    extensions_map = {
+        '.log': 'text/plain',
+        '.pdf': 'application/pdf',
+    }
+
+SocketServer.TCPServer(('', int(os.environ['PORT'])), Handler).serve_forever()
