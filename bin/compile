@@ -60,40 +60,7 @@ if [ ! -f $DOCUMENT ]; then
 fi
 
 # Attempt to build the document into a PDF
-build-step "Building $DOCUMENT"
-OPTIONS="--interaction=nonstopmode -file-line-error"
-WRITTEN=`pdflatex $OPTIONS $DOCUMENT | grep "^Output written"`
-
-# Bail out if something went wrong
-if [ ! "$WRITTEN" ]; then
-    TEX_LOG=`echo $DOCUMENT | sed 's/\.tex$/.log/'`
-
-    # Save logs to a file to loop over them more reliably
-    ERROR_LOG=`mktemp`
-
-    # Read out just the error messages and locations
-    grep "^\./$DOCUMENT:" $TEX_LOG | sed 's/^..//' > $ERROR_LOG
-
-    while read -r line; do
-        LINE_NO=`echo $line | cut -d: -f2`
-
-        # Ignore multiple messages per line
-        if [ "$LINE_NO" != "$PREV_LINE_NO" ]; then
-            # Send feedback to the user
-            build-warn "$line"
-        fi
-        PREV_LINE_NO="$LINE_NO"
-    done < $ERROR_LOG
-
-    # Clean up after ourselves
-    rm $ERROR_LOG
-    exit 1
-fi
-
-# Give some feedback to the user
-OUTPUT_FILENAME=`echo $WRITTEN | sed 's/.*on \(.\+pdf\).*/\1/'`
-PAGES=`echo $WRITTEN | sed 's/.* .\([0-9]\+ pages\?\),.*/\1/'`
-build-info "Wrote $PAGES to $OUTPUT_FILENAME"
+exec bin/build $DOCUMENT
 
 # Set up the environment for runtimes now that compilation has finished
 echo 'export PATH=$HOME/.texlive/bin/x86_64-linux:$PATH' >> $PROFILE_D
