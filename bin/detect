@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
-echo "TeX Live"
+if [ -f $BUILD_DIR/document.tex ]; then
+    echo "LaTeX document"
+else
+    echo "No document found"
+    exit 1
+fi
