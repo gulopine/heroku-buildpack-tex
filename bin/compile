@@ -55,12 +55,10 @@ fi
 
 # Check for the existence of a suitable TeX document
 cd $BUILD_DIR
-if [ ! -f $DOCUMENT ]; then
-    build-warn "$DOCUMENT not found." && exit 1
+if [ -f $DOCUMENT ]; then
+    # And build it
+    exec bin/build $DOCUMENT
 fi
-
-# Attempt to build the document into a PDF
-exec bin/build $DOCUMENT
 
 # Set up the environment for runtimes now that compilation has finished
 echo 'export PATH=$HOME/.texlive/bin/x86_64-linux:$PATH' >> $PROFILE_D
