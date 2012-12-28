@@ -18,8 +18,10 @@ function build-step (){ echo "-----> $@"; }
 function build-warn (){ echo " !     $@"; }
 function build-info (){ echo "       $@"; }
 
-# Prepare the TeX Live location
+# Prepare the various paths
 mkdir -p $TEXLIVE_HOME
+mkdir -p $TEXLIVE_CACHE
+mkdir -p `dirname $PROFILE_D`
 
 if [ -f $TEXLIVE_CACHE/VERSION ] && (( $VERSION == `cat $TEXLIVE_CACHE/VERSION` )); then
     # Get TeX Live from the cache if possible
@@ -35,8 +37,7 @@ else
 
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 
-    # Make sure there's an empty cache
-    mkdir -p $TEXLIVE_CACHE
+    # Make sure the cache is empty
     rm -rf $TEXLIVE_CACHE/*
 
     # Store a copy of it in the cache so it doesn't have to be fetched again
@@ -95,5 +96,4 @@ PAGES=`echo $WRITTEN | sed 's/.* .\([0-9]\+ pages\?\),.*/\1/'`
 build-info "Wrote $PAGES to $OUTPUT_FILENAME"
 
 # Set up the environment for runtimes now that compilation has finished
-mkdir -p $BUILD_DIR/.profile.d
 echo "PATH=~/.texlive/bin/x86_64-linux:$PATH" >> $BUILD_DIR/.profile.d/texlive
