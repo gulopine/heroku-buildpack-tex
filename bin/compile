@@ -11,7 +11,6 @@ TEXLIVE_HOME=$BUILD_DIR/.texlive
 TEXLIVE_CACHE=$CACHE_DIR/.texlive
 PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 PROFILE_D=$BUILD_DIR/.profile.d/texlive.sh
-DOCUMENT="document.tex"
 
 # Output helpers
 function build-step (){ echo "-----> $@"; }
@@ -51,13 +50,6 @@ fi
 if [ ! `which pdflatex` ]; then
     build-warn "TeX Live installation failed"
     exit 1
-fi
-
-# Check for the existence of a suitable TeX document
-cd $BUILD_DIR
-if [ -f $DOCUMENT ]; then
-    # And build it
-    exec bin/build $DOCUMENT
 fi
 
 # Set up the environment for runtimes now that compilation has finished

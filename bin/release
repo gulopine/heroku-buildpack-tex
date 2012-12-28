@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 # bin/release <build-dir>
 
-BUILD_DIR=$1
-
 cat << EOF
 ---
 default_process_types:
 EOF
-
-# Only set up the server if there's a document to serve
-if [ -f $BUILD_DIR/document.tex ]; then
-	echo '  web: python -m SimpleHTTPServer $PORT'
-fi
