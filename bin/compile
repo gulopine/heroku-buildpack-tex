@@ -10,7 +10,7 @@ TEXLIVE_URL="$TEXLIVE_DOMAIN/texlive-$VERSION.tar.gz"
 TEXLIVE_HOME=$BUILD_DIR/.texlive
 TEXLIVE_CACHE=$CACHE_DIR/.texlive
 PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
-PROFILE_D=$BUILD_DIR/.profile.d/texlive
+PROFILE_D=$BUILD_DIR/.profile.d/texlive.sh
 DOCUMENT="document.tex"
 
 # Output helpers
