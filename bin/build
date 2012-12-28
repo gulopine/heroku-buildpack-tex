@@ -12,6 +12,7 @@ function build-info (){ echo "       $@"; }
 
 # Build the document
 build-step "Building $DOCUMENT"
+OPTIONS="--interaction=nonstopmode -file-line-error"
 WRITTEN=`pdflatex $OPTIONS $DOCUMENT | grep "^Output written"`
 
 # Bail out if something went wrong
