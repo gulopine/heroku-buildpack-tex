@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
+# bin/release <build-dir>
 
-cat << EOF
----
-default_process_types:
-  web: python -m SimpleHTTPServer \$PORT
-EOF
+BUILD_DIR=$1
+
+echo "---"
+
+if [ -f $BUILD_DIR/document.tex ]; then
+	cat << EOF
+	default_process_types:
+	  web: python -m SimpleHTTPServer \$PORT
+	EOF
+fi
