@@ -3,10 +3,12 @@
 
 BUILD_DIR=$1
 
-if [ -f $BUILD_DIR/document.tex ]; then
 cat << EOF
 ---
 default_process_types:
-  web: python -m SimpleHTTPServer \$PORT
 EOF
+
+# Only set up the server if there's a document to serve
+if [ -f $BUILD_DIR/document.tex ]; then
+	echo 'web: python -m SimpleHTTPServer $PORT'
 fi
