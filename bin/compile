@@ -55,4 +55,4 @@ fi
 echo 'export PATH=$HOME/.texlive/bin/x86_64-linux:$PATH' >> $PROFILE_D
 
 # Build the available TeX document
-exec bin/build document.tex
+exec $BIN_DIR/build document.tex
