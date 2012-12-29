@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
+BUILD_DIR=$1
+
 if [ -f $BUILD_DIR/document.tex ]; then
     echo "LaTeX document"
 else
