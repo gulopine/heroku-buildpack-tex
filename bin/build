@@ -3,12 +3,11 @@
 # Attempt to build a document into a PDF
 
 DOCUMENT=$1
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 OPTIONS="--interaction=nonstopmode -file-line-error"
 
 # Output helpers
-function build-step (){ echo "-----> $@"; }
-function build-warn (){ echo " !     $@"; }
-function build-info (){ echo "       $@"; }
+source $BIN_DIR/utils
 
 # Build the document
 build-step "Building $DOCUMENT"
