@@ -3,6 +3,7 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 
 TEXLIVE_DOMAIN="https://heroku-buildpack-tex.s3.amazonaws.com"
 VERSION=`curl $TEXLIVE_DOMAIN/VERSION -s`
@@ -13,9 +14,7 @@ PATH=$TEXLIVE_HOME/bin/x86_64-linux:$PATH
 PROFILE_D=$BUILD_DIR/.profile.d/texlive.sh
 
 # Output helpers
-function build-step (){ echo "-----> $@"; }
-function build-warn (){ echo " !     $@"; }
-function build-info (){ echo "       $@"; }
+source $BIN_DIR/utils
 
 # Prepare the various paths
 mkdir -p $TEXLIVE_HOME
