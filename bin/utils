@@ -1,0 +1,4 @@
+# Output helpers
+function build-step (){ echo "-----> $@"; }
+function build-warn (){ echo " !     $@"; }
+function build-info (){ echo "       $@"; }
